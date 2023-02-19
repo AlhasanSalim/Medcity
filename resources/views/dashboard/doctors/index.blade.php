@@ -66,5 +66,5 @@
             @endforelse
         </tbody>
     </table>
-    {{$doctors->links()}}
+    {{  $doctors->links()  }}
 @endsection
