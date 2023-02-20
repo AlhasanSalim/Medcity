@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Trashed Categories')
+@section('title', 'Trashed Doctors')
 @section('breadcrumb')
   @parent
   <li class="breadcrumb-item">Doctors</li>
