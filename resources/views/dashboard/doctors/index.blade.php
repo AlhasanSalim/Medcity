@@ -3,24 +3,30 @@
 @section('title', 'All Doctors')
 
 @section('breadcrumb')
-@parent
+    @parent
     <li class="breadcrumb-item active">All Doctors</li>
 @endsection
 
 @section('content')
     <div class="mb-5">
-
         <a class="btn btn-sm btn-outline-primary mr-2" href="{{ route('doctors.create') }}">
             Create
         </a>
 
-        <a class="btn btn-sm btn-outline-dark" href="#">
+        <a class="btn btn-sm btn-outline-dark" href="{{ route('doctors.trash') }}">
             Trash
         </a>
-
     </div>
+
+    <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-start">
+        <input name="name" type="text" placeholder="Search" value="{{request('name')}}"/>
+        <br>
+        <button class="btn btn-dark">Filter</button>
+    </form>
+
     <br>
     <br>
+
     <table class="table">
         <thead>
             <tr>
@@ -49,15 +55,11 @@
                     <td>{{ $doctor->university }}</td>
                     <td>{{ $doctor->created_at }}</td>
                     <td>
-                        <a href="" class="btn btn-sm btn-outline-success">Edit</a>
+                        @include('dashboard.doctors.buttons.edit')
                     </td>
                     <td>
-                        <form action="" method="post">
-                            @csrf
-                            <!-- Form Method Spoofing -->
-                            <input type="hidden" name="_method" value="delete">
-                            <!-- or using directive bt @method('delete/put/patch')-->
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        <form action="{{ route('doctors.destroy', $doctor->id) }}" method="post">
+                            @include('dashboard.doctors.buttons.delete')
                         </form>
                     </td>
                 </tr>
@@ -66,5 +68,6 @@
             @endforelse
         </tbody>
     </table>
+    {{-- pagination --}}
     {{  $doctors->links()  }}
 @endsection

@@ -57,19 +57,65 @@ class DoctorController extends Controller
 
     public function edit(Doctor $doctor)
     {
-        //
+        $doctor = Doctor::findOrFail($doctor->id);
+        return view('dashboard.doctors.edit', compact('doctor'));
     }
 
 
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, $id)
     {
-        //
+        Doctor::where('id', '=', $id)->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'biograph' => $request->biograph,
+            'speciality' => $request->speciality,
+            'degrees' => $request->degrees,
+            'office' => $request->office,
+            'university' => $request->university
+        ]);
+
+        return redirect()->route('doctors.index');
     }
 
 
-    public function destroy(Doctor $doctor)
+    public function destroy($id)
     {
-        //
+        // Doctor::where('id', '=', $id)->delete();
+        // Doctor::destroy($id);
+
+        // Or
+
+
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+
+        return redirect()->route('doctors.index');
+
     }
+
+    public function trash()
+    {
+        $search = new Doctor();
+        $doctors = $this->filter($search)->onlyTrashed()->paginate();
+
+        return view('dashboard.doctors.trash', compact('doctors'));
+    }
+
+    public function restore($id)
+    {
+        $doctor = Doctor::onlyTrashed()->findOrFail($id);
+        $doctor->restore();
+
+        return redirect()->route('doctors.trash');
+    }
+
+    public function forceDelete($id)
+    {
+        $doctor = Doctor::onlyTrashed()->findOrFail($id);
+        $doctor->forceDelete();
+        return redirect()->route('doctors.trash');
+    }
+
+
 
 }

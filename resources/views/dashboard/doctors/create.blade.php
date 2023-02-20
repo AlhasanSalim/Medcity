@@ -6,6 +6,7 @@
 @endsection
 @section('content')
     <form method="POST" action="{{ route('doctors.store') }}">
+        @csrf
         @include('dashboard.doctors.form')
     </form>
 @endsection
