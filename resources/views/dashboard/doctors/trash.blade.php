@@ -13,11 +13,7 @@
     </a>
 </div>
 
-<form action="{{ URL::current() }}" method="get" class="d-flex justify-content-start">
-    <input name="name" type="text" placeholder="Search" value="{{request('name')}}"/>
-    <br>
-    <button class="btn btn-dark">Filter</button>
-</form>
+@include('dashboard.doctors.buttons.filter-input')
 
 <br>
 <br>

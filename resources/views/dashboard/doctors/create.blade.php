@@ -5,8 +5,7 @@
     <li class="breadcrumb-item active">Create Doctor</li>
 @endsection
 @section('content')
-    <form method="POST" action="{{ route('doctors.store') }}">
-        @csrf
+    {!! Form::open(['route' => 'doctors.store']) !!}
         @include('dashboard.doctors.form')
-    </form>
+    {!! Form::close() !!}
 @endsection

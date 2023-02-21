@@ -8,9 +8,7 @@
 @endsection
 
 @section('content')
-    <form method="post" action="{{ route('doctors.update', $doctor->id) }}">
-        @csrf
-        @method('put')
+    {!! Form::open( ['route' => ['doctors.update', $doctor->id], 'method' => 'put'] ) !!}
         @include('dashboard.doctors.form')
-    </form>
+    {!! Form::close() !!}
 @endsection

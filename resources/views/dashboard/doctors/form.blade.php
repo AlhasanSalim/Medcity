@@ -1,37 +1,80 @@
 <div class="form-group">
-    <label for="exampleInputEmail1">Doctors`s name</label>
-    <input type="text" name="name" value="{{$doctor->name ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Doctor name" style="width: 800px">
+    {!! Form::label('Doctors`s name') !!}
+    {!! Form::text('name', $doctor->name ?? old('name') ?? "", ['class' => 'form-control',
+                                                                 'placeholder' => 'Enter Doctor`s name',
+                                                                 'style' => 'width: 800px',
+                                                                 'required']) !!}
+    @error('name')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Phone</label>
-    <input type="text" name="phone" value="{{$doctor->phone ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Phone number" style="width: 800px">
+    {!! Form::label('Phone') !!}
+    {!! Form::text('phone', $doctor->phone ?? old('phone') ?? "", ['class' => 'form-control',
+                                                                   'placeholder' => 'Enter Doctor`s Phone number',
+                                                                   'style' => 'width: 800px',
+                                                                   'required']) !!}
+    @error('phone')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Biograph</label>
-    <textarea name="biograph" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Biograph" style="width: 800px">{{$doctor->biograph ?? ""}}</textarea>
+    {!! Form::label('Biograph') !!}
+    {!! Form::text('biograph', $doctor->biograph ?? old('biograph') ?? "", ['class' => 'form-control',
+                                                                            'placeholder' => 'Enter Doctor`s Biograph',
+                                                                            'style' => 'width: 800px',
+                                                                            'required']) !!}
+    @error('biograph')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Speciality</label>
-    <input type="text" name="speciality" value="{{$doctor->speciality ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Speciality" style="width: 800px">
+    {!! Form::label('Speciality') !!}
+    {!! Form::text('speciality', $doctor->speciality ?? old('speciality') ?? "", ['class' => 'form-control',
+                                                                                  'placeholder' => 'Enter Doctor`s Speciality',
+                                                                                  'style' => 'width: 800px',
+                                                                                  'required']) !!}
+    @error('speciality')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Degrees</label>
-    <input type="text" name="degrees" value="{{$doctor->degrees ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Degrees" style="width: 800px">
+    {!! Form::label('Degrees') !!}
+    {!! Form::text('degrees', $doctor->degrees ?? old('degrees') ?? "", ['class' => 'form-control',
+                                                                         'placeholder' => 'Enter Doctor`s Degrees',
+                                                                         'style' => 'width: 800px',
+                                                                         'required']) !!}
+    @error('degrees')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Office</label>
-    <input type="text" name="office" value="{{$doctor->office ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Office" style="width: 800px">
+    {!! Form::label('Office') !!}
+    {!! Form::text('office', $doctor->office ?? old('office') ?? "", ['class' => 'form-control',
+                                                                      'placeholder' => 'Enter Doctor`s Office',
+                                                                      'style' => 'width: 800px',
+                                                                      'required']) !!}
+    @error('office')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">University</label>
-    <input type="text" name="university" value="{{$doctor->university ?? ""}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter University" style="width: 800px">
+    {!! Form::label('University') !!}
+    {!! Form::text('university', $doctor->university ?? old('university') ?? "", ['class' => 'form-control',
+                                                                                  'placeholder' => 'Enter Doctor`s University',
+                                                                                  'style' => 'width: 800px',
+                                                                                  'required']) !!}
+    @error('university')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 </div>
 
-<button type="submit" class="btn btn-primary">Submit</button>
+{!! Form::submit('submit', ['class' => 'btn btn-primary']) !!}
+
 

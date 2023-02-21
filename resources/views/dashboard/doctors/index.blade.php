@@ -18,11 +18,7 @@
         </a>
     </div>
 
-    <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-start">
-        <input name="name" type="text" placeholder="Search" value="{{request('name')}}"/>
-        <br>
-        <button class="btn btn-dark">Filter</button>
-    </form>
+    @include('dashboard.doctors.buttons.filter-input')
 
     <br>
     <br>
@@ -58,9 +54,9 @@
                         @include('dashboard.doctors.buttons.edit')
                     </td>
                     <td>
-                        <form action="{{ route('doctors.destroy', $doctor->id) }}" method="post">
+                        {!! Form::open(['route' => ['doctors.destroy', $doctor->id], 'method' => 'delete' ]) !!}
                             @include('dashboard.doctors.buttons.delete')
-                        </form>
+                        {!! Form::close() !!}
                     </td>
                 </tr>
             @empty
