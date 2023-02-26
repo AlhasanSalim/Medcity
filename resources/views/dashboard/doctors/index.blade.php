@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    @include('dashboard.doctors.buttons.filter-input')
+    @include('dashboard.buttons.filter-input')
 
     <br>
     <br>
@@ -39,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($doctors as $doctor)
+            @forelse ($doctors_all as $doctor)
                 <tr>
                     <td>{{ $doctor->id }}</td>
                     <td>{{ $doctor->name }}</td>
@@ -51,11 +51,11 @@
                     <td>{{ $doctor->university }}</td>
                     <td>{{ $doctor->created_at }}</td>
                     <td>
-                        @include('dashboard.doctors.buttons.edit')
+                        @include('dashboard.buttons.edit')
                     </td>
                     <td>
                         {!! Form::open(['route' => ['doctors.destroy', $doctor->id], 'method' => 'delete' ]) !!}
-                            @include('dashboard.doctors.buttons.delete')
+                            @include('dashboard.buttons.delete')
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -65,5 +65,5 @@
         </tbody>
     </table>
     {{-- pagination --}}
-    {{  $doctors->links()  }}
+    {{  $doctors_all->links()  }}
 @endsection

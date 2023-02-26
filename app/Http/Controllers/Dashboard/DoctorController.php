@@ -9,19 +9,53 @@ use Illuminate\Http\Request;
 class DoctorController extends Controller
 {
 
-    protected function filter($search)
-    {
-        if (request()->has('name') && request()->get('name') != "") {
-            $search = $search->where('name', '=', request()->get('name'));
+    // protected function filter($search)
+    // {
+    //     if (request()->has('name') && request()->get('name') != "") {
+    //         $search = $search->where('name', 'LIKE', '%'.request()->get('name').'%');
+    //     }
+
+    //     return $search;
+    // }
+
+
+    protected function filter(Request $request, $query) {
+        if ($request->has('name') && $request->get('name') != "") {
+            $query->where('name', 'LIKE', '%'.$request->get('name').'%');
         }
-        return $search;
+
+        if ($request->has('phone') && $request->get('phone') != "") {
+            $query->where('phone', 'LIKE', '%'.$request->get('phone').'%');
+        }
+
+        if ($request->has('speciality') && $request->get('speciality') != "") {
+            $query->where('speciality', 'LIKE', '%'.$request->get('speciality').'%');
+        }
+        return $query;
     }
 
-    public function index()
+
+    protected function validation(Request $request)
     {
-        $search = new Doctor();
-        $doctors = $this->filter($search)->paginate(10);
-        return view('dashboard.doctors.index', compact('doctors'));
+        $attributes = $request->validate([
+            'name'       => ['required', 'string', 'min:3', 'max:255'],
+            'phone'      => ['required', 'string', 'unique:doctors,phone', 'min:11', 'max:16'],
+            'biograph'   => ['required', 'string'],
+            'speciality' => ['required', 'string', 'max:255'],
+            'degrees'    => ['required', 'string', 'max:255'],
+            'office'     => ['required', 'string', 'max:255'],
+            'university' => ['required', 'string']
+        ]);
+        return $attributes;
+    }
+
+
+    public function index(Request $request)
+    {
+
+        $doctors_all = Doctor::latest();
+        $doctors_all = $this->filter($request,$doctors_all)->paginate(10);
+        return view('dashboard.doctors.index', compact('doctors_all'));
     }
 
 
@@ -33,18 +67,7 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        $attributes = $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'phone' => ['required', 'string', 'unique:doctors,phone', 'min:11', 'max:16'],
-            'biograph' => ['required', 'string'],
-            'speciality' => ['required', 'string', 'max:255'],
-            'degrees' => ['required', 'string', 'max:255'],
-            'office' => ['required', 'string', 'max:255'],
-            'university' => ['required', 'string']
-        ]);
-
-        Doctor::create($attributes);
-
+        Doctor::create($this->validation($request));
         return redirect()->route('doctors.index');
     }
 
@@ -64,16 +87,7 @@ class DoctorController extends Controller
 
     public function update(Request $request, $id)
     {
-        Doctor::where('id', '=', $id)->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'biograph' => $request->biograph,
-            'speciality' => $request->speciality,
-            'degrees' => $request->degrees,
-            'office' => $request->office,
-            'university' => $request->university
-        ]);
-
+        Doctor::where('id', '=', $id)->update($this->validation($request));
         return redirect()->route('doctors.index');
     }
 
@@ -90,13 +104,12 @@ class DoctorController extends Controller
         $doctor->delete();
 
         return redirect()->route('doctors.index');
-
     }
+
 
     public function trash()
     {
-        $search = new Doctor();
-        $doctors = $this->filter($search)->onlyTrashed()->paginate();
+        $doctors = Doctor::onlyTrashed()->paginate();
 
         return view('dashboard.doctors.trash', compact('doctors'));
     }
@@ -115,7 +128,4 @@ class DoctorController extends Controller
         $doctor->forceDelete();
         return redirect()->route('doctors.trash');
     }
-
-
-
 }

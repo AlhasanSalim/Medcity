@@ -34,12 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
 
       @auth
-        <form action="{{route('logout')}}" method="post">
-          <li class="nav-item d-none d-sm-inline-block">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
-          </li>
-        </form>
+        @include('dashboard.buttons.logout')
       @endauth
 
     </ul>
@@ -205,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{route('dashboard')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -214,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('doctors.index')}}" class="nav-link ">
+                <a href="{{route('doctors.index')}}" class="nav-link {{ is_active('doctors') }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Doctors</p>
                 </a>
