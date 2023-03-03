@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('awards_honours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained('doctors');
+            $table->foreignId('doctor_id')->constrained('doctors')->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

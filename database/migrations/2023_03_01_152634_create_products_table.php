@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('name');
-            $table->string('phone')->unique();
-            $table->float('rating')->default(0.0);
-            $table->text('biograph');
-            $table->string('speciality');
-            $table->string('degrees');
-            $table->string('office');
-            $table->string('university');
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('image');
+            $table->float('price')->default(0.0);
+            $table->unsignedSmallInteger('quantity')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('products');
     }
 };

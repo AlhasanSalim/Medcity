@@ -5,7 +5,7 @@
  $required = 'required';
 @endphp
 <div class="form-group">
-    {!! Form::label('Doctor`s name') !!}
+    {!! Form::label('Doctors`s name') !!}
     {!! Form::text($name, $doctor->name ?? old($name) ?? "", ['class' => $class,
                                                               'placeholder' => 'Enter Doctor`s name',
                                                               'style' => $style,

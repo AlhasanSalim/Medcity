@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OpeningHour extends Model
+class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function doctor() {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
+    protected $fillable = ['name', 'slug'];
+
+    public function products() {
+        return $this->hasMany(Product::class, null, 'id');
     }
 }

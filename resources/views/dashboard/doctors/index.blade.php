@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    @include('dashboard.buttons.filter-input')
+    @include('dashboard.doctors.doctors-buttons.filter-input')
 
     <br>
     <br>
@@ -51,11 +51,11 @@
                     <td>{{ $doctor->university }}</td>
                     <td>{{ $doctor->created_at }}</td>
                     <td>
-                        @include('dashboard.buttons.edit')
+                        @include('dashboard.doctors.doctors-buttons.edit')
                     </td>
                     <td>
                         {!! Form::open(['route' => ['doctors.destroy', $doctor->id], 'method' => 'delete' ]) !!}
-                            @include('dashboard.buttons.delete')
+                            @include('dashboard.doctors.doctors-buttons.delete')
                         {!! Form::close() !!}
                     </td>
                 </tr>

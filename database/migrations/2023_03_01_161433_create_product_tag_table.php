@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('product_tag', function (Blueprint $table) {
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->foreignId('tag_id')->constrained('tags')->cascadeOnDelete();
+
+            // composed(compound) primary key
+            $table->primary(['product_id', 'tag_id']);
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('product_tag');
     }
 };

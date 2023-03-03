@@ -1,15 +1,20 @@
 @extends('layouts.dashboard')
-@section('title', 'Trashed Doctors')
-@section('breadcrumb')
-  @parent
-  <li class="breadcrumb-item">Doctors</li>
-  <li class="breadcrumb-item active">Trash</li>
-@endsection
-@section('content')
 
+@section('title', 'All Categories')
+
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active">All Categories</li>
+@endsection
+
+@section('content')
     <div class="mb-5">
-        <a class="btn btn-sm btn-outline-primary" href="{{ route('doctors.index') }}">
-            Back
+        <a class="btn btn-sm btn-outline-primary mr-2" href="{{ route('categories.create') }}">
+            Create
+        </a>
+
+        <a class="btn btn-sm btn-outline-dark" href="#">
+            Trash
         </a>
     </div>
 
@@ -17,7 +22,6 @@
 
     <br>
     <br>
-
 
     <table class="table">
         <thead>
@@ -35,9 +39,9 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($doctors as $doctor)
+            {{-- @forelse ($doctors_all as $doctor) --}}
                 <tr>
-                    <td>{{ $doctor->id }}</td>
+                    {{-- <td>{{ $doctor->id }}</td>
                     <td>{{ $doctor->name }}</td>
                     <td>{{ $doctor->phone }}</td>
                     <td>{{ substr($doctor->biograph, 0, 50) }} ... </td>
@@ -46,22 +50,20 @@
                     <td>{{ $doctor->office }}</td>
                     <td>{{ $doctor->university }}</td>
                     <td>{{ $doctor->created_at }}</td>
-
                     <td>
-                        @include('dashboard.doctors.doctors-buttons.restore')
+                        @include('dashboard.doctors.doctors-buttons.edit')
                     </td>
-
-
                     <td>
-                        @include('dashboard.doctors.doctors-buttons.force-delete')
-                    </td>
+                        {!! Form::open(['route' => ['doctors.destroy', $doctor->id], 'method' => 'delete' ]) !!}
+                            {{-- @include('dashboard.doctors.doctors-buttons.delete') --}}
+                        {{-- {!! Form::close() !!} --}}
+                    {{-- </td> --}}
                 </tr>
-            @empty
-                <td colspan="7">No Doctors defind.</td>
-            @endforelse
+            {{-- @empty
+                <td colspan="8">No docotrs defind.</td>
+            @endforelse --}}
         </tbody>
     </table>
-
-    {{ $doctors->links() }}
-
+    {{-- pagination --}}
+    {{-- {{  $doctors_all->links()  }} --}}
 @endsection

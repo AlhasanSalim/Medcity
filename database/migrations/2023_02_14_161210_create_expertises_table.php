@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('expertises', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->nullable()->constrained('doctors');
+            $table->foreignId('doctor_id')->nullable()->constrained('doctors')->cascadeOnDelete();
             $table->string('expertise')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

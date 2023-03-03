@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('medicals_educations', function (Blueprint $table) {
+        Schema::create('medical_educations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->nullable()->constrained('doctors');
+            $table->foreignId('doctor_id')->nullable()->constrained('doctors')->cascadeOnDelete();
             $table->integer('graduation_year')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

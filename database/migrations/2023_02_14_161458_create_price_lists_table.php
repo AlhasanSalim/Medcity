@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained('doctors');
+            $table->foreignId('doctor_id')->constrained('doctors')->cascadeOnDelete();
             $table->string('name');
             $table->float('price')->default(0.0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

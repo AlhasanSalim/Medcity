@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 class DoctorController extends Controller
 {
 
-    // protected function filter($search)
-    // {
-    //     if (request()->has('name') && request()->get('name') != "") {
-    //         $search = $search->where('name', 'LIKE', '%'.request()->get('name').'%');
-    //     }
-
-    //     return $search;
-    // }
-
-
     protected function filter(Request $request, $query) {
         if ($request->has('name') && $request->get('name') != "") {
             $query->where('name', 'LIKE', '%'.$request->get('name').'%');
@@ -35,6 +25,20 @@ class DoctorController extends Controller
     }
 
 
+    public function index(Request $request)
+    {
+        $doctors_all = Doctor::latest();
+        $doctors_all = $this->filter($request,$doctors_all)->paginate(10);
+        return view('dashboard.doctors.index', compact('doctors_all'));
+    }
+
+
+    public function create()
+    {
+        return view('dashboard.doctors.create');
+    }
+
+
     protected function validation(Request $request)
     {
         $attributes = $request->validate([
@@ -47,21 +51,6 @@ class DoctorController extends Controller
             'university' => ['required', 'string']
         ]);
         return $attributes;
-    }
-
-
-    public function index(Request $request)
-    {
-
-        $doctors_all = Doctor::latest();
-        $doctors_all = $this->filter($request,$doctors_all)->paginate(10);
-        return view('dashboard.doctors.index', compact('doctors_all'));
-    }
-
-
-    public function create()
-    {
-        return view('dashboard.doctors.create');
     }
 
 

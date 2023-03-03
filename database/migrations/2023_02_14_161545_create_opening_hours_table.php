@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained('doctors');
+            $table->foreignId('doctor_id')->constrained('doctors')->cascadeOnDelete();
             $table->string('times_of_work');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opening_hours');
+        Schema::dropIfExists('works');
     }
 };

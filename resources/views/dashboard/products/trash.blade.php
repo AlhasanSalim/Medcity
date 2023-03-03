@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    {{-- @include('dashboard.doctors.doctors-buttons.filter-input') --}}
+    @include('dashboard.buttons.filter-input')
 
     <br>
     <br>
@@ -48,12 +48,12 @@
                     <td>{{ $doctor->created_at }}</td>
 
                     <td>
-                        @include('dashboard.doctors.doctors-buttons.restore')
+                        @include('dashboard.buttons.restore')
                     </td>
 
 
                     <td>
-                        @include('dashboard.doctors.doctors-buttons.force-delete')
+                        @include('dashboard.buttons.force-delete')
                     </td>
                 </tr>
             @empty

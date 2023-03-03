@@ -20,6 +20,7 @@ class DoctorFactory extends Factory
         return [
             'name' => $name,
             'phone' => $this->faker->phoneNumber,
+            'rating' => $this->faker->randomFloat(null, 0, 10.0),
             'biograph' => $this->faker->sentence(500),
             'speciality' => $this->faker->words(1, true),
             'degrees' => $this->faker->words(3, true),
