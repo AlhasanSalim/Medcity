@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    {{-- @include('dashboard.doctors.doctors-buttons.filter-input') --}}
+    @include('dashboard.categories.categories-buttons.filter-input')
 
     <br>
     <br>
@@ -38,12 +38,12 @@
                     <td>{{ $category->created_at }}</td>
 
                     <td>
-                        {{-- @include('dashboard.categories.categories-buttons.restore') --}}
+                        @include('dashboard.categories.categories-buttons.restore')
                     </td>
 
 
                     <td>
-                        {{-- @include('dashboard.categories.categories-buttons.force-delete') --}}
+                        @include('dashboard.categories.categories-buttons.force-delete')
                     </td>
                 </tr>
             @empty
